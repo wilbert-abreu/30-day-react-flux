@@ -1,60 +1,22 @@
 import React from 'react';
-import 'whatwg-fetch';
 import './App.css';
-import TimeForm from './TimeForm';
+
 import { Router, Route, hashHistory } from 'react-router'
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentTime: null, msg: 'now'
-    }
-  }
+import { Index } from './containers/Index';
 
-  // methods we'll fill in shortly
-  fetchCurrentTime() {
-    fetch(this.getApiUrl())
-      .then(resp => resp.json())
-      .then(resp => {
-        const currentTime = resp.dateString;
-        this.setState({ currentTime })
-      })
-  }
+const Home = () => (  <div><h1>Welcome home</h1></div> )
+const About = () => (<div><h1>About</h1></div> )
 
-  getApiUrl() {
-    const { tz, msg } = this.state;
-    const host = 'https://fullstacktime.herokuapp.com';
-    return `${ host }/${ tz }/${ msg }.json`;
-  }
-
-  handleFormSubmit( evt ) {
-    this.fetchCurrentTime();
-  }
-
-  handleChange( newState ) {
-    this.setState( newState );
-  }
-
+export class App extends React.Component {
   render() {
-    const { currentTime, tz } = this.state;
-    const apiUrl = this.getApiUrl();
-
     return (
-      <div>
-        { !currentTime &&
-          <button onClick={this.fetchCurrentTime.bind(this)}>
-            Get the current time
-          </button> }
-        { currentTime && <div>The current time is: { currentTime }</div> }
-        <TimeForm
-          onFormSubmit={this.handleFormSubmit.bind(this)}
-          onFormChange={this.handleChange.bind(this)}
-          tz={tz}
-          msg={'now'}
-        />
-        <p>We'll be making a request from: <code>{apiUrl}</code></p>
-      </div>
+      <Router history={ hashHistory }>
+        <Route path="/" component={ Index }>
+          <Route path="home" component={ Home } />
+          <Route path="about" component={ About } />
+        </Route>
+      </Router>
     )
   }
 }
