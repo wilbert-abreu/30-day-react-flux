@@ -1,12 +1,12 @@
 import React from 'react';
-import './App.css';
 
 import {
   Router, Route, hashHistory, IndexRoute
 } from 'react-router';
-import { Index } from './containers/Index';
-import { Home } from './views/Home/Home.js';
-import { About } from './views/About/About.js';
+
+import { Index } from './Index';
+import Home from '../views/Home/Home';
+import About from '../views/About/About';
 
 export class App extends React.Component {
   render() {
