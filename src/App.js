@@ -5,9 +5,8 @@ import {
   Router, Route, hashHistory, IndexRoute
 } from 'react-router';
 import { Index } from './containers/Index';
-
-const Home = () => ( <div><h1>Welcome home</h1></div> )
-const About = () => ( <div><h1>About</h1></div> )
+import { Home } from './views/Home/Home.js';
+import { About } from './views/About/About.js';
 
 export class App extends React.Component {
   render() {
